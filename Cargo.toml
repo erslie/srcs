@@ -1,0 +1,14 @@
+[package]
+authors = ["ersli"]
+name = "srcs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde  = {version = "1.0", features = ["derive"]}
+serde_json = "1.0"
+serenity = {version = "0.12.2", features = ["framework", "standard_framework", "client"]}
+tokio = {version = "1.6.0", features = ["macros", "rt-multi-thread"] }
+http = "1.0"
+reqwest = "0.12.15"
+scraper = "0.23.1"
