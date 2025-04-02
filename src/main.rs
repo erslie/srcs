@@ -2,6 +2,7 @@
 
 use std::fs;
 use std::{collections::HashSet, fs::File, io::BufReader, usize};
+use serenity::futures::future::select;
 use serenity::model::gateway::Ready;
 use serenity::{async_trait, framework, http};
 use serenity::framework::standard::{
@@ -53,9 +54,14 @@ async fn main() {
         .expect("Err creating client");
 
     let body = get_reqwest();
-    println!("body is \n{}", body.await.to_string());
+    println!("body is \n{}", body.await.as_str());
 
-
+    // let document = scraper::Html::parse_document(body.await.as_str());
+    // let selector = scraper::Selector::parse("td.tbg > a").unwrap();
+    // let elements = document.select(&selector);
+    // selector is incorrect...
+    // elements.for_each(|e| println!("elemet:{}", e.text().next().unwrap()));
+    
     if let Err(why) = client.start().await {
         println!("Client error : {:?}", why);
     }
@@ -68,9 +74,10 @@ async fn get_reqwest() -> String {
     body
 }
 
-//atode...
-// async fn scraping(target: &str) -> String {
-//     let document = scraper::Html::parse_document(target);
+async fn scraping(target: &str) -> String {
+    let document = scraper::Html::parse_document(target);
 
-//     let selector = scraper::Selector::parse("")
-// }
+    let selector = scraper::Selector::parse(".item").unwrap();
+    println!("{:?}",selector);
+    "a".to_string()
+}
